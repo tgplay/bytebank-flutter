@@ -10,6 +10,7 @@ class ByteBankApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        //sffold nao tem child mas sim, body
         body: FomularioTransferencia(),
       ),
     );
