@@ -19,32 +19,34 @@ class ByteBankApp extends StatelessWidget {
 
 class FomularioTransferencia extends StatelessWidget {
   //essas sao as controllers que capturam o texto digitado
-  final TextEditingController _controladorCampoValor = TextEditingController();
   final TextEditingController _controladorCampoNumeroConta =
       TextEditingController();
+  final TextEditingController _controladorCampoValor = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Criando Transferência')),
-      body: Column(
-        children: [
-          Editor(
-            controlador: _controladorCampoNumeroConta,
-            dica: '0000',
-            rotulo: 'Número da conta',
-          ),
-          Editor(
-            controlador: _controladorCampoValor,
-            dica: '0.00',
-            rotulo: 'Valor',
-            icone: Icons.monetization_on,
-          ),
-          ElevatedButton(
-            child: Text('Confirmar'),
-            onPressed: () => _criaTransferencia(context),
-          )
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Editor(
+              controlador: _controladorCampoNumeroConta,
+              dica: '0000',
+              rotulo: 'Número da conta',
+            ),
+            Editor(
+              controlador: _controladorCampoValor,
+              dica: '0.00',
+              rotulo: 'Valor',
+              icone: Icons.monetization_on,
+            ),
+            ElevatedButton(
+              child: Text('Confirmar'),
+              onPressed: () => _criaTransferencia(context),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -96,13 +98,14 @@ class ListaTransferencias extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return ListaTransferenciaState();
+    return ListaTransferenciasState();
   }
 }
 
-class ListaTransferenciaState extends State<ListaTransferencias> {
+class ListaTransferenciasState extends State<ListaTransferencias> {
   @override
   Widget build(BuildContext context) {
+    //widget._transferencias.add(Transferencia(100.0, 1000));
     return Scaffold(
       //o Scaffold não tem child mas body
       appBar: AppBar(title: Text('Transferências')),
@@ -116,14 +119,16 @@ class ListaTransferenciaState extends State<ListaTransferencias> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          final Future future =
+          final Future<Transferencia?> future =
               Navigator.push(context, MaterialPageRoute(builder: (context) {
             return FomularioTransferencia();
           }));
           future.then((transferenciaRecebida) {
             debugPrint('Chegou no then do future');
             debugPrint('$transferenciaRecebida');
-            widget._transferencias.add(transferenciaRecebida);
+            setState(() {
+              widget._transferencias.add(transferenciaRecebida!);
+            });
           });
         },
       ),
