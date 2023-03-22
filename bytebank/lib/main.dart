@@ -17,7 +17,14 @@ class ByteBankApp extends StatelessWidget {
   }
 }
 
-class FomularioTransferencia extends StatelessWidget {
+class FormularioTransferencia extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return FormularioTransferenciaState();
+  }
+}
+
+class FormularioTransferenciaState extends State<FormularioTransferencia> {
   //essas sao as controllers que capturam o texto digitado
   final TextEditingController _controladorCampoNumeroConta =
       TextEditingController();
@@ -121,14 +128,16 @@ class ListaTransferenciasState extends State<ListaTransferencias> {
         onPressed: () {
           final Future<Transferencia?> future =
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return FomularioTransferencia();
+            return FormularioTransferencia();
           }));
           future.then((transferenciaRecebida) {
             debugPrint('Chegou no then do future');
             debugPrint('$transferenciaRecebida');
-            setState(() {
-              widget._transferencias.add(transferenciaRecebida!);
-            });
+            if (transferenciaRecebida != null) {
+              setState(() {
+                widget._transferencias.add(transferenciaRecebida);
+              });
+            }
           });
         },
       ),
