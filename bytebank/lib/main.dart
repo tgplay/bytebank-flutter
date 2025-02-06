@@ -1,23 +1,24 @@
-import 'dart:ffi';
-
-import 'package:bytebank/screens/transferencia/lista.dart';
+import 'package:byte_bank/screens/transferencia/lista.dart';
 import 'package:flutter/material.dart';
 
-// Quando queremos executar alguma coisa para o aplicativo precisamos executar tudo dentro da chamada runApp()
-void main() => runApp(ByteBankApp());
+void main() => runApp(BytebankApp());
 
-class ByteBankApp extends StatelessWidget {
+class BytebankApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: Colors.green[900],
-          secondary: Colors.blueAccent[700],
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.blue[700]!,
+          primary: Colors.green[900]!,
+          secondary: Colors.blue[700]!,
         ),
-        buttonTheme: ButtonThemeData(
-          buttonColor: Colors.blueAccent[700],
-          textTheme: ButtonTextTheme.primary,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(
+              Colors.blue[700]!,
+            ),
+          ),
         ),
       ),
       home: ListaTransferencias(),

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.bytebank">
+    package="com.example.byte_bank">
    <application
-        android:label="bytebank"
+        android:label="byte_bank"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

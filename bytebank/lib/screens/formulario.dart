@@ -1,22 +1,9 @@
-import 'package:byte_bank/components/editor.dart';
 import 'package:byte_bank/models/transferencia.dart';
 import 'package:flutter/material.dart';
 
-const _tituloAppBar = 'Criando Transferência';
-const _rotuloCampoValor = 'Valor';
-const _dicaCampoValor = '0.00';
-const _rotuloCampoNumeroConta = 'Número da Conta';
-const _dicaCampoNumeroConta = '0000';
-const _textoBotaoConfirmar = 'Confirmar';
+import '../components/editor.dart';
 
-class FormularioTransferencia extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return FormularioTransferenciaState();
-  }
-}
-
-class FormularioTransferenciaState extends State<FormularioTransferencia> {
+class FormularioTransferencia extends StatelessWidget {
   final TextEditingController _controladorCampoNumeroConta =
       TextEditingController();
 
@@ -26,25 +13,25 @@ class FormularioTransferenciaState extends State<FormularioTransferencia> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(_tituloAppBar),
+        title: Text('Criando Transferência'),
       ),
       body: Column(
         children: [
           Editor(
             controlador: _controladorCampoNumeroConta,
-            dica: _dicaCampoNumeroConta,
-            rotulo: _rotuloCampoNumeroConta,
+            dica: '0000',
+            rotulo: 'Número da Conta',
           ),
           Editor(
             controlador: _controladorCampoValor,
-            dica: _dicaCampoValor,
-            rotulo: _rotuloCampoValor,
+            dica: '0.00',
+            rotulo: 'Valor',
             icone: Icons.monetization_on,
           ),
           ElevatedButton(
             /* => expression body */
             onPressed: () => _criaTransferencia(context),
-            child: Text(_textoBotaoConfirmar),
+            child: Text('Confirmar'),
           ),
         ],
       ),
@@ -57,6 +44,8 @@ class FormularioTransferenciaState extends State<FormularioTransferencia> {
     final double? valor = double.tryParse(_controladorCampoValor.text);
     if (numeroConta != null && valor != null) {
       final transferenciaCriada = Transferencia(valor, numeroConta);
+      debugPrint('Criando transferência');
+      debugPrint('$transferenciaCriada');
       Navigator.pop(context, transferenciaCriada);
     }
   }

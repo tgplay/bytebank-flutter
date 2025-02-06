@@ -6,15 +6,19 @@ class Editor extends StatelessWidget {
   final String? dica;
   final IconData? icone;
 
-  Editor({this.controlador, this.rotulo, this.dica, this.icone});
+  Editor({
+    this.controlador,
+    this.rotulo,
+    this.dica,
+    this.icone,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: TextField(
-        controller:
-            controlador, //Essa é a variavel que armazena o que foi digitado no campo
+        controller: controlador,
         style: TextStyle(fontSize: 24.0),
         decoration: InputDecoration(
           icon: icone != null ? Icon(icone) : null,
